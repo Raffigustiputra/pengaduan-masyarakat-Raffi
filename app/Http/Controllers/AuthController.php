@@ -36,7 +36,7 @@ class AuthController extends Controller
                 } elseif ($role === 'STAFF') {
                     return redirect()->route('')->with('success', 'Login berhasil. Selamat datang ' . Auth::user()->email . '!');
                 } elseif ($role === 'HEAD_STAFF') {
-                    return redirect()->route('')->with('success', 'Login berhasil. Selamat datang ' . Auth::user()->email . '!');
+                    return redirect()->route('headstaff.page')->with('success', 'Login berhasil. Selamat datang ' . Auth::user()->email . '!');
                 }
                 
                 return redirect()->route('report')->with('success', 'Login berhasil. Selamat datang ' . Auth::user()->email . '!');

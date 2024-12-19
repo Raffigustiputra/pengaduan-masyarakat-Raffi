@@ -28,18 +28,28 @@
 
         <!-- Navbar -->
         <nav class="space-x-6">
-            @guest
-            <a href="{{ route('dashboard') }}" class="hover:text-blue-300">Home</a>
-            @endguest
-            @auth
-            <a href="{{ route('report') }}" class="hover:text-blue-300">Home</a>
+            @php
+                $role = auth()->user()->role ?? 'GUEST';
+            @endphp
+
+            @if ($role === 'GUEST')
+                <a href="{{ route('report') }}" class="hover:text-blue-300">Home</a>
                 <a href="{{ route('report_create') }}" class="hover:text-blue-300">Pengaduan</a>
                 <a href="{{ route('report_me') }}" class="hover:text-blue-300">Monitoring</a>
-            </nav>
+            @elseif ($role === 'STAFF')
+                <a href="{{ route('') }}" class="hover:text-blue-300">Dashboard Staff</a>
+                <a href="{{ route('') }}" class="hover:text-blue-300">Laporan</a>
+            @elseif ($role === 'HEAD_STAFF')
+                <a href="{{ route('headstaff.page') }}" class="hover:text-blue-300">Dashboard Head Staff</a>
+                <a href="{{ route('headstaff.create') }}" class="hover:text-blue-300">kelola akun</a>
+            @endif
 
+            @if (auth()->check())
+                <a href="{{ route('logout') }}"
+                    class="text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded">Logout</a>
+            @endif
+        </nav>
 
-            <a href="{{ route('logout') }}" class="text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded">Logout</a>
-        @endauth
     </header>
 
     <!-- Content -->
